@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     
     void Start()
     {
-        InvokeRepeating("Spawn",1.5f,1);                               //InvokeRepeating kalder her Spawn-metoden efter 1.5 sekund, og efterfølgende én gang i sekundet
+        InvokeRepeating("Spawn",1.5f,spawnCooldown);                               //InvokeRepeating kalder her Spawn-metoden efter 1.5 sekund, og efterfølgende én gang i sekundet
     }
 
     void Spawn()                                                    //Spawn-metoden som spawner et objekt i en random position

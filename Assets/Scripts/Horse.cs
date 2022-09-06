@@ -35,6 +35,8 @@ public class Horse : MonoBehaviour
                 Eat();
                 break;
         }
+
+        
     }
 
     void Sleep()                                            //sleep-metode
@@ -44,13 +46,23 @@ public class Horse : MonoBehaviour
 
     void Eat()                                              //Eat-metoden
     {
+        
+
+
         GameObject closestGrass;                            //Lokal gameobject-variabel til det nærmeste stykke græs
         float shortestDistance = 9999;                      //lokal float-variabel til at holde den korteste afstand til et stykke græs
 
         foreach (GameObject grass in allGrass)              //foreach er ligesom et for-loop, bare det kører igennem alle elementer i en liste eller et array
         {
+            if (grass == null)
+            {
+                allGrass.Remove(grass);
+            }
+
             if (Vector3.Distance(grass.transform.position,this.transform.position) < shortestDistance)              //this afstanen mellem græs og hest er mindre end shortestDistance
             {
+                
+
                 shortestDistance = Vector3.Distance(grass.transform.position, this.transform.position);             //shortestDistance = afstanden mellem græs og hest
                 closestGrass = grass;                                                                               //Det stykke græs foreach-loopet arbejder på lige nu, gemmes i variablen closestGrass
                 agent.SetDestination(closestGrass.transform.position);                                              //Dette stykke græs sættes som agentens (hesten) destination

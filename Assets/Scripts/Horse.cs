@@ -14,13 +14,12 @@ public class Horse : MonoBehaviour
 
     public List<GameObject> allGrass = new List<GameObject>();  //Liste til alt græsset i scenen
     public State myState;                                       //enum-objekt som holder styr på hvilken state man er i
-    public GameObject grass;                                //græs-objekt
     public GameObject bed;                                  //senge-objekt
     public NavMeshAgent agent;                              //navmesh-agent
     
     void Start()
     {
-        
+        bed = GameObject.Find("Bed");                       //Finder et gameobject i scenen der hedder "Bed" og gemmer det i bed-variablen
     }
     
     void Update()
@@ -54,9 +53,9 @@ public class Horse : MonoBehaviour
 
         foreach (GameObject grass in allGrass)              //foreach er ligesom et for-loop, bare det kører igennem alle elementer i en liste eller et array
         {
-            if (grass == null)
+            if (grass == null)                              //Hvis græsset ikke eksisterer
             {
-                allGrass.Remove(grass);
+                continue;                                   //foreach-loopet springer resten af sin kode over, og kører videre til næste iteration
             }
 
             if (Vector3.Distance(grass.transform.position,this.transform.position) < shortestDistance)              //this afstanen mellem græs og hest er mindre end shortestDistance

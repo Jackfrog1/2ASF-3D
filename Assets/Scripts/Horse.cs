@@ -132,7 +132,7 @@ public class Horse : MonoBehaviour
         }
 
         this.transform.localScale = new Vector3(1, 1, 1);                                 //sætter hesten til almindelig størrelse
-        grown = true;                                                                       // bool-variabel
+        grown = true;                                                                     // bool-variabel
     }
 
     

@@ -226,7 +226,7 @@ MonoBehaviour:
   horseObj: {fileID: 1152178059403894844}
   grassEaten: 0
   foodRequiredToGiveBirth: 3
-  maxHorses: 50
+  maxHorses: 30
 --- !u!135 &-4670856719631009282
 SphereCollider:
   m_ObjectHideFlags: 0

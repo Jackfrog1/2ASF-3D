@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cffb922748ab044901a1a5729682dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 35
-  spawnCooldown: 0.1
+  range: 45
+  spawnCooldown: 0.05
   objectToSpawn: {fileID: 9194870275706508621, guid: 271f5409a5d02ef4bb634c4da7856f53, type: 3}
-  maxGrass: 150
+  maxGrass: 200

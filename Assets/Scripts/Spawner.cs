@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
 
     void Spawn()                                                    //Spawn-metoden som spawner et objekt i en random position
     {
-        print(numberOfGrass);
+        //print(numberOfGrass);
 
         float randomX = Random.Range(-range,range);
         float randomZ = Random.Range(-range,range);

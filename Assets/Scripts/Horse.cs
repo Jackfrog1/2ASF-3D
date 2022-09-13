@@ -10,9 +10,11 @@ public class Horse : MonoBehaviour
     { 
         Sleep,
         Eat,
+        Flee,
     }
 
     public List<GameObject> allGrass = new List<GameObject>();  //Liste til alt græsset i scenen
+    public GameObject[] allLions;                                //Array til alle løver i scenen
     public State myState;                                       //enum-objekt som holder styr på hvilken state man er i
     //public GameObject bed;                                  //senge-objekt
     public NavMeshAgent agent;                              //navmesh-agent
@@ -22,6 +24,8 @@ public class Horse : MonoBehaviour
     bool grown = false;
     static int numberOfHorses;
     public int maxHorses;
+    public float fleeDistance;
+    float fleeTime;
     
     void Start()
     {
@@ -43,7 +47,66 @@ public class Horse : MonoBehaviour
             case State.Eat:
                 Eat();
                 break;
+
+            case State.Flee:
+                Flee();
+                break;
         }  
+    }
+
+    void CheckForLionsNearby() 
+    {
+        GameObject closestLion;
+        float shortestDistance = 9999;
+        allLions = GameObject.FindGameObjectsWithTag("Lion");
+
+        foreach (GameObject lion in allLions)
+        {
+            if (lion == null)
+            {
+                continue;
+            }
+
+            if (Vector3.Distance(lion.transform.position, this.transform.position) < shortestDistance)
+            {
+                shortestDistance = Vector3.Distance(lion.transform.position, this.transform.position);
+                closestLion = lion;
+                if (shortestDistance < fleeDistance)
+                {
+                    myState = State.Flee;
+                }
+            }
+        }
+    }
+
+    void Flee() 
+    {
+        fleeTime += Time.deltaTime;
+
+        if (fleeTime > 3)
+        {
+            fleeTime = 0;
+            myState = State.Eat;
+        }
+
+        GameObject closestLion;
+        float shortestDistance = 9999;
+
+        foreach (GameObject lion in allLions)
+        {
+            if (lion == null)
+            {
+                continue;
+            }
+
+            if (Vector3.Distance(lion.transform.position, this.transform.position) < shortestDistance)
+            {
+                shortestDistance = Vector3.Distance(lion.transform.position, this.transform.position);
+                closestLion = lion;
+                agent.SetDestination(transform.position + transform.position - lion.transform.position);
+                //print(transform.position + transform.position - lion.transform.position);
+            }
+        }
     }
 
     void Sleep()                                            //sleep-metode
@@ -53,6 +116,8 @@ public class Horse : MonoBehaviour
 
     void Eat()                                              //Eat-metoden
     {
+        CheckForLionsNearby();
+
         GameObject closestGrass;                            //Lokal gameobject-variabel til det nærmeste stykke græs
         float shortestDistance = 9999;                      //lokal float-variabel til at holde den korteste afstand til et stykke græs
 
@@ -117,7 +182,7 @@ public class Horse : MonoBehaviour
         }
 
         this.transform.localScale = new Vector3(1,1,1);                                 //sætter hesten til almindelig størrelse
-        Instantiate(horseObj, this.transform.position, Quaternion.identity);            //spanwner en ny hest
+        Instantiate(horseObj, this.transform.position + new Vector3(1,0,0), Quaternion.identity);            //spanwner en ny hest
     }
 
     IEnumerator GrowUp() 
@@ -133,6 +198,11 @@ public class Horse : MonoBehaviour
 
         this.transform.localScale = new Vector3(1, 1, 1);                                 //sætter hesten til almindelig størrelse
         grown = true;                                                                     // bool-variabel
+    }
+
+    public void DecreaseNumberOgHorsesByOne() 
+    {
+        numberOfHorses--;
     }
 
     

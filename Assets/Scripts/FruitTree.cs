@@ -30,7 +30,8 @@ public class FruitTree : MonoBehaviour
 
     void SpawnAFruit(Transform spawnPoint, GameObject randomFruit) 
     {
-        Instantiate(randomFruit, spawnPoint.position, Quaternion.identity);
+        GameObject fruit = Instantiate(randomFruit, spawnPoint.position, Quaternion.identity);
+        Destroy(fruit, 30f);
     }
 
     int GetARandomInt(int a, int b) 

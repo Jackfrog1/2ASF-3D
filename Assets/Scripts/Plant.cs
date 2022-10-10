@@ -14,8 +14,10 @@ public class Plant : MonoBehaviour
     public float lifeExpectancy;        //levetid for planten
     public float timeLived;             //tid planten har levet
     public bool startedDying;           //er planten gået i gang med sin dødsproces
+    public int deathDuration;           //hvor lang tid dødsprocessen skal strækkes over (ikke i sekunder)
     public GameObject newPlant;         //gameObject til ny plante der kommer ved reproduktion
     public Renderer myRenderer;         //rendereren til planten (til at lave om i udseendet)
+
     
     void Start()
     {
@@ -36,7 +38,7 @@ public class Plant : MonoBehaviour
         }
     }
 
-    void ResetGlobalVariableValues()                                                //sætter nogle globale variabler til nogle startværdier fordi Unity ved en fejl kopierer de gamle værdier fra planten som en ny plante kommer fra
+    public void ResetGlobalVariableValues()                                                //sætter nogle globale variabler til nogle startværdier fordi Unity ved en fejl kopierer de gamle værdier fra planten som en ny plante kommer fra
     {
         transform.localScale = new Vector3(startSize, startSize, startSize);        //sætter planten til en bestemt størrelse
         timeLived = 0;                                                              //sætter timeLived til 0
@@ -44,7 +46,7 @@ public class Plant : MonoBehaviour
         myRenderer.material.color = new Color(1, 1, 1);                             //sætter farven til hvid
     }
 
-    IEnumerator Grow()
+    public IEnumerator Grow()
     {
         while (transform.localScale.magnitude < maxSize && startedDying == false)       //mens plantens størrelse er under maxSize OG den ikke er startet dødsprocessen
         {
@@ -53,7 +55,7 @@ public class Plant : MonoBehaviour
         }
     }
 
-    void Reproduce() 
+    public void Reproduce() 
     {
         if (numberOfPlants < maxPlants)                                                     //hvis antal planter er under max tilladte antal planter
         {
@@ -72,16 +74,16 @@ public class Plant : MonoBehaviour
         }
     }
 
-    IEnumerator Die()                                                           //coroutine til når planten skal visne og dø
+    public IEnumerator Die()                                                           //coroutine til når planten skal visne og dø
     {
         startedDying = true;                                                    //starteddying is true now
-        for (int i = 0; i < 300; i++)                                           //for-loop der kører 300 gange
+        for (int i = 0; i < deathDuration; i++)                                           //for-loop der kører 150 gange
         {
-            myRenderer.material.color -= new Color(0.005f,0.005f,0.005f);       //gør farven lidt mørkere
+            myRenderer.material.color -= new Color(0.01f,0.01f,0.01f);       //gør farven lidt mørkere
 
-            if (transform.localScale.magnitude > 0)                             //hvis planten er større end 0
+            if (transform.localScale.x > 0)                             //hvis planten er større end 0
             {
-                transform.localScale += new Vector3(-growRate * 0.5f, -growRate * 0.5f, -growRate * 0.5f);  //gør planten mindre
+                transform.localScale += new Vector3(-growRate * 0.3f, -growRate * 0.3f, -growRate * 0.3f);  //gør planten mindre
             }
             
             yield return new WaitForSecondsRealtime(0.05f);                     //venter 0.05 sekunder

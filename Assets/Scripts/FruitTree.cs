@@ -9,7 +9,7 @@ public class FruitTree : MonoBehaviour
     
     void Start()
     {
-        StartCoroutine(SpawnFruitsAllTheTime(1f));
+        StartCoroutine(SpawnFruitsAllTheTime(10f));
     }
 
     IEnumerator SpawnFruitsAllTheTime(float timeBetweenFruits) 

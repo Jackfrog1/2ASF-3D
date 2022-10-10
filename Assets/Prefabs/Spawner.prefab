@@ -47,4 +47,4 @@ MonoBehaviour:
   range: 45
   spawnCooldown: 0.05
   objectToSpawn: {fileID: 9194870275706508621, guid: 271f5409a5d02ef4bb634c4da7856f53, type: 3}
-  maxGrass: 200
+  maxGrass: 20

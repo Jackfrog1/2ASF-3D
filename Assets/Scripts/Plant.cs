@@ -38,7 +38,7 @@ public class Plant : MonoBehaviour
         }
     }
 
-    public void ResetGlobalVariableValues()                                                //sætter nogle globale variabler til nogle startværdier fordi Unity ved en fejl kopierer de gamle værdier fra planten som en ny plante kommer fra
+    public void ResetGlobalVariableValues()                                         //sætter nogle globale variabler til nogle startværdier fordi Unity ved en fejl kopierer de gamle værdier fra planten som en ny plante kommer fra
     {
         transform.localScale = new Vector3(startSize, startSize, startSize);        //sætter planten til en bestemt størrelse
         timeLived = 0;                                                              //sætter timeLived til 0
@@ -48,7 +48,7 @@ public class Plant : MonoBehaviour
 
     public IEnumerator Grow()
     {
-        while (transform.localScale.magnitude < maxSize && startedDying == false)       //mens plantens størrelse er under maxSize OG den ikke er startet dødsprocessen
+        while (transform.localScale.magnitude < maxSize && startedDying == false)       //mens plantens størrelse er under maxSize OG den ikke har startet dødsprocessen
         {
             transform.localScale += new Vector3(growRate, growRate, growRate);          //planten vokser
             yield return new WaitForSecondsRealtime(0.05f);                             //vent 0.05 sekunder
@@ -74,14 +74,14 @@ public class Plant : MonoBehaviour
         }
     }
 
-    public IEnumerator Die()                                                           //coroutine til når planten skal visne og dø
+    public IEnumerator Die()                                                            //coroutine til når planten skal visne og dø
     {
-        startedDying = true;                                                    //starteddying is true now
-        for (int i = 0; i < deathDuration; i++)                                           //for-loop der kører 150 gange
+        startedDying = true;                                                            //starteddying is true now
+        for (int i = 0; i < deathDuration; i++)                                         //for-loop der kører 150 gange
         {
-            myRenderer.material.color -= new Color(0.01f,0.01f,0.01f);       //gør farven lidt mørkere
+            myRenderer.material.color -= new Color(0.01f,0.01f,0.01f);                  //gør farven lidt mørkere
 
-            if (transform.localScale.x > 0)                             //hvis planten er større end 0
+            if (transform.localScale.x > 0)                                             //hvis planten er større end 0
             {
                 transform.localScale += new Vector3(-growRate * 0.3f, -growRate * 0.3f, -growRate * 0.3f);  //gør planten mindre
             }

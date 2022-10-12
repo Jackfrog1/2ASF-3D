@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3448893710940515791}
   - component: {fileID: 5534669592552069695}
   m_Layer: 0
-  m_Name: Cactus
+  m_Name: Flower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

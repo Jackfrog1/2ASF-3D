@@ -26,7 +26,8 @@ public class Horse : MonoBehaviour
     public int maxHorses;
     public float fleeDistance;
     float fleeTime;
-    
+    public float explosionForce;
+
     void Start()
     {
         numberOfHorses++;
@@ -203,7 +204,24 @@ public class Horse : MonoBehaviour
     public void DecreaseNumberOgHorsesByOne() 
     {
         numberOfHorses--;
+        Explode();
     }
 
-    
+    void Explode()
+    {
+        foreach (Transform part in transform)
+        {
+            GameObject newPart = Instantiate(part.gameObject,part.transform.position, part.rotation);
+
+            newPart.AddComponent<Rigidbody>();
+            newPart.AddComponent<MeshCollider>();
+            newPart.GetComponent<MeshCollider>().convex = true;
+
+            Vector3 randomDirection = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(0.5f, 1), Random.Range(-0.5f, 0.5f));
+            newPart.GetComponent<Rigidbody>().velocity = randomDirection * explosionForce;
+         
+        }  
+    }
+
+   
 }
